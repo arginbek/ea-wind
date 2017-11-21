@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.mum.cs544.wind.domain.Person;
-import edu.mum.cs544.wind.domain.ROLE;
+import edu.mum.cs544.wind.domain.Role;
 import edu.mum.cs544.wind.service.PersonService;
 
 @RestController
@@ -16,7 +16,7 @@ public class PersonController {
 
 	@PostMapping("/persons")
 	public Person addPerson(@RequestBody Person person) {
-		person.addRole(ROLE.CUSTOMER);
+		person.addRole(Role.CUSTOMER);
 		return personService.addPerson(person);
 	}
 
