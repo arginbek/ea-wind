@@ -6,5 +6,10 @@ import java.util.List;
 
 public interface PersonService {
     Person addPerson(Person person);
+
     List<Person> getPersons();
+
+    Person getPerson(long id);
+
+//    Session addSession(Session session);
 }

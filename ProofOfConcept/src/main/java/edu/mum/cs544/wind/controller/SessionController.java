@@ -18,30 +18,30 @@ import edu.mum.cs544.wind.service.SessionService;
 @RestController
 @PreAuthorize("hasRole(Role.ADMIN)")
 public class SessionController {
-	
+
     @Autowired
     private SessionService sessionService;
-    
+
     @PostMapping("/sessions")
     public Session addSession(@RequestBody Session session) {
         return sessionService.addSession(session);
     }
-    
+
     @PutMapping("/sessions")
     public Session updateSession(@RequestBody Session session) {
         return sessionService.updateSession(session);
     }
-    
+
     @GetMapping("/sessions")
     public List<Session> getAllSession() {
         return (List<Session>) sessionService.getAllSession();
     }
-    
+
     @GetMapping("/sessions/{id}")
     public Session getSession(@PathVariable Long id) {
         return sessionService.getSession(id);
     }
-    
+
     @DeleteMapping("/sessions/{id}")
     public void removeSession(@PathVariable Long id) {
         sessionService.removeSession(id);
