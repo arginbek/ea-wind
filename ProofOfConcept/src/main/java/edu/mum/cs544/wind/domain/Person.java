@@ -2,6 +2,7 @@ package edu.mum.cs544.wind.domain;
 
 import org.hibernate.annotations.Cascade;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -9,8 +10,11 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Person {
@@ -27,10 +31,14 @@ public class Person {
     @CollectionTable
     @Enumerated(EnumType.STRING)
     @Cascade({org.hibernate.annotations.CascadeType.ALL})
-    private List<Role> roles;
+    private Set<Role> roles;
+
+    @ManyToMany(mappedBy = "persons", cascade = CascadeType.ALL)
+    private List<Session> sessions;
 
     public Person() {
-        roles = new ArrayList<>();
+        roles = new HashSet<>();
+        sessions = new ArrayList<>();
     }
 
     public Person(String firstName, String lastName, String email, String username, String password) {
@@ -39,6 +47,14 @@ public class Person {
         this.email = email;
         this.username = username;
         this.password = password;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    private void setId(long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -81,16 +97,30 @@ public class Person {
         this.password = password;
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
     public void addRole(Role role) {
         roles.add(role);
+    }
+
+    public List<Session> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(List<Session> sessions) {
+        this.sessions = sessions;
+    }
+
+    public void addSession(Session session) {
+        if (!sessions.contains(session)) {
+            sessions.add(session);
+        }
     }
 
 }
