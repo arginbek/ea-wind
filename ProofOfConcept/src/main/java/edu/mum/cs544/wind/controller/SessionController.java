@@ -1,5 +1,7 @@
 package edu.mum.cs544.wind.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,8 +33,8 @@ public class SessionController {
     }
     
     @GetMapping("/sessions")
-    public Session getAllSession() {
-        return (Session) sessionService.getAllSession();
+    public List<Session> getAllSession() {
+        return (List<Session>) sessionService.getAllSession();
     }
     
     @GetMapping("/sessions/{id}")

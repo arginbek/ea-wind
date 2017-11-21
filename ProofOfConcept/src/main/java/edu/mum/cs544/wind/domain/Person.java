@@ -40,6 +40,10 @@ public class Person {
         roles = new HashSet<>();
         sessions = new ArrayList<>();
     }
+    
+    public Person(long id) {
+    	this.id = id;
+    }
 
     public Person(String firstName, String lastName, String email, String username, String password) {
         this.firstName = firstName;
@@ -53,7 +57,7 @@ public class Person {
         return id;
     }
 
-    private void setId(long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
