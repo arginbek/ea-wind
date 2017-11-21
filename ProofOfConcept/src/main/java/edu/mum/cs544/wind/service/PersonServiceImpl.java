@@ -17,6 +17,7 @@ public class PersonServiceImpl implements PersonService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+
 	@Override
 	public Person addPerson(Person person) {
 		person.setPassword(passwordEncoder.encode(person.getPassword()));
