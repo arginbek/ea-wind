@@ -24,11 +24,11 @@ public class Person {
 	private String username;
 	private String password;
 
-	@ElementCollection(targetClass = ROLE.class)
+	@ElementCollection(targetClass = Role.class)
 	@CollectionTable
 	@Enumerated(EnumType.STRING)
 	@Cascade({org.hibernate.annotations.CascadeType.ALL})
-	private List<ROLE> roles;
+	private List<Role> roles;
 
 	public Person() {
 		roles = new ArrayList<>();
@@ -41,7 +41,7 @@ public class Person {
 		this.username = username;
 		this.password = password;
 		roles = new ArrayList<>();
-		roles.add(ROLE.CUSTOMER);
+		roles.add(Role.CUSTOMER);
 	}
 
 	public String getFirstName() {
@@ -84,15 +84,15 @@ public class Person {
 		this.password = password;
 	}
 
-	public List<ROLE> getRoles() {
+	public List<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<ROLE> roles) {
+	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
 	
-	public void addRole(ROLE role) {
+	public void addRole(Role role) {
 		roles.add(role);
 	}
 
