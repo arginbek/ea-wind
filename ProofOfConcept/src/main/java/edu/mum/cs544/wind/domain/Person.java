@@ -41,12 +41,13 @@ public class Person {
         sessions = new ArrayList<>();
     }
 
-    public Person(String firstName, String lastName, String email, String username, String password) {
+    public Person(String firstName, String lastName, String email, String username, String password, Set<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
         this.password = password;
+        this.roles = roles;
     }
 
     public long getId() {

@@ -1,10 +1,10 @@
 package edu.mum.cs544.wind.repository;
 
-import javax.transaction.Transactional;
-
+import edu.mum.cs544.wind.domain.Session;
 import org.springframework.data.repository.CrudRepository;
 
-import edu.mum.cs544.wind.domain.Session;
+import javax.transaction.Transactional;
 
 @Transactional
-public interface SessionRepository extends CrudRepository<Session, Long> {}
+public interface SessionRepository extends CrudRepository<Session, Long> {
+}
