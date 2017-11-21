@@ -110,4 +110,34 @@ public class Session {
     public void setPersons(List<Person> persons) {
         this.persons = persons;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Session)) return false;
+
+        Session session = (Session) o;
+
+        if (id != session.id) return false;
+        if (capacity != session.capacity) return false;
+        if (date != null ? !date.equals(session.date) : session.date != null) return false;
+        if (startTime != null ? !startTime.equals(session.startTime) : session.startTime != null) return false;
+        if (duration != null ? !duration.equals(session.duration) : session.duration != null) return false;
+        if (location != null ? !location.equals(session.location) : session.location != null) return false;
+        if (counselor != null ? !counselor.equals(session.counselor) : session.counselor != null) return false;
+        return persons != null ? persons.equals(session.persons) : session.persons == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + (startTime != null ? startTime.hashCode() : 0);
+        result = 31 * result + (duration != null ? duration.hashCode() : 0);
+        result = 31 * result + capacity;
+        result = 31 * result + (location != null ? location.hashCode() : 0);
+        result = 31 * result + (counselor != null ? counselor.hashCode() : 0);
+        result = 31 * result + (persons != null ? persons.hashCode() : 0);
+        return result;
+    }
 }

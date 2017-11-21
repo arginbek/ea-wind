@@ -12,7 +12,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Person {
@@ -29,13 +31,13 @@ public class Person {
     @CollectionTable
     @Enumerated(EnumType.STRING)
     @Cascade({org.hibernate.annotations.CascadeType.ALL})
-    private List<Role> roles;
+    private Set<Role> roles;
 
     @ManyToMany(mappedBy = "persons", cascade = CascadeType.ALL)
     private List<Session> sessions;
 
     public Person() {
-        roles = new ArrayList<>();
+        roles = new HashSet<>();
         sessions = new ArrayList<>();
     }
 
@@ -95,18 +97,16 @@ public class Person {
         this.password = password;
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
     public void addRole(Role role) {
-        if (!roles.contains(role)) {
-            roles.add(role);
-        }
+        roles.add(role);
     }
 
     public List<Session> getSessions() {
