@@ -1,7 +1,6 @@
 package edu.mum.cs544.wind.controller;
 
 import edu.mum.cs544.wind.domain.Person;
-import edu.mum.cs544.wind.domain.Role;
 import edu.mum.cs544.wind.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +17,6 @@ public class PersonController {
 
     @PostMapping("/persons")
     public Person addPerson(@RequestBody Person person) {
-        person.addRole(Role.CUSTOMER);
         return personService.addPerson(person);
     }
 
@@ -26,5 +24,9 @@ public class PersonController {
     public List<Person> getPersons() {
         return personService.getPersons();
     }
+
+//    public Session addSession(@RequestBody Session session) {
+//        return personService.addSession(session);
+//    }
 
 }
