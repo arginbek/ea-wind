@@ -2,6 +2,7 @@ package edu.mum.cs544.wind.domain;
 
 import org.hibernate.annotations.Cascade;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +31,12 @@ public class Person {
     @Cascade({org.hibernate.annotations.CascadeType.ALL})
     private List<Role> roles;
 
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    private List<Appointment> appointments;
+
     public Person() {
         roles = new ArrayList<>();
+        appointments = new ArrayList<>();
     }
 
     public Person(String firstName, String lastName, String email, String username, String password) {
@@ -39,6 +45,14 @@ public class Person {
         this.email = email;
         this.username = username;
         this.password = password;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    private void setId(long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -90,7 +104,23 @@ public class Person {
     }
 
     public void addRole(Role role) {
-        roles.add(role);
+        if (!roles.contains(role)) {
+            roles.add(role);
+        }
+    }
+
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
+    }
+
+    public void addAppointment(Appointment appointment) {
+        if (!appointments.contains(appointment)) {
+            appointments.add(appointment);
+        }
     }
 
 }
