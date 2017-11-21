@@ -10,7 +10,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,12 +31,12 @@ public class Person {
     @Cascade({org.hibernate.annotations.CascadeType.ALL})
     private List<Role> roles;
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
-    private List<Appointment> appointments;
+    @ManyToMany(mappedBy = "persons", cascade = CascadeType.ALL)
+    private List<Session> sessions;
 
     public Person() {
         roles = new ArrayList<>();
-        appointments = new ArrayList<>();
+        sessions = new ArrayList<>();
     }
 
     public Person(String firstName, String lastName, String email, String username, String password) {
@@ -109,17 +109,17 @@ public class Person {
         }
     }
 
-    public List<Appointment> getAppointments() {
-        return appointments;
+    public List<Session> getSessions() {
+        return sessions;
     }
 
-    public void setAppointments(List<Appointment> appointments) {
-        this.appointments = appointments;
+    public void setSessions(List<Session> sessions) {
+        this.sessions = sessions;
     }
 
-    public void addAppointment(Appointment appointment) {
-        if (!appointments.contains(appointment)) {
-            appointments.add(appointment);
+    public void addSession(Session session) {
+        if (!sessions.contains(session)) {
+            sessions.add(session);
         }
     }
 

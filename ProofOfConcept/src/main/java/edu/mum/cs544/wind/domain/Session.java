@@ -5,7 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -27,11 +28,14 @@ public class Session {
     @JoinColumn(name = "counselor_id")
     private Person counselor;
 
-    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
-    private List<Appointment> appointments;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "Appointment",
+            joinColumns = {@JoinColumn(name = "session_id")},
+            inverseJoinColumns = {@JoinColumn(name = "person_id")})
+    private List<Person> persons;
 
     public Session() {
-        appointments = new ArrayList<>();
+        persons = new ArrayList<>();
     }
 
     public Session(LocalDate date, LocalDate startTime, Duration duration, int capacity, String location, Person counselor) {
@@ -99,11 +103,11 @@ public class Session {
         this.counselor = counselor;
     }
 
-    public List<Appointment> getAppointments() {
-        return appointments;
+    public List<Person> getPersons() {
+        return persons;
     }
 
-    public void setAppointments(List<Appointment> appointments) {
-        this.appointments = appointments;
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
     }
 }
