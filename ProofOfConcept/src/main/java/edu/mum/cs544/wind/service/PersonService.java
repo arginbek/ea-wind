@@ -11,6 +11,8 @@ public interface PersonService {
 
     Person getPerson(long id);
 
+    Person getPersonByUsername(String username);
+
     Person updatePerson(Person person);
 
     void removePerson(Long id);

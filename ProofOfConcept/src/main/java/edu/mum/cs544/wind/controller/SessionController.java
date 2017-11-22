@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@PreAuthorize("hasRole(Role.ROLE_ADMIN)")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 public class SessionController {
 
     @Autowired

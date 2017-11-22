@@ -90,19 +90,6 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
-
-        <!--&lt;!&ndash; Hibernate ORM &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.hibernate</groupId>-->
-            <!--<artifactId>hibernate-core</artifactId>-->
-            <!--<version>5.2.11.Final</version>-->
-        <!--</dependency>-->
-        <!--&lt;!&ndash; Hibernate-C3P0 Integration &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.hibernate</groupId>-->
-            <!--<artifactId>hibernate-c3p0</artifactId>-->
-            <!--<version>5.2.11.Final</version>-->
-        <!--</dependency>-->
     </dependencies>
 
     <build>
