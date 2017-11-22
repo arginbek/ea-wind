@@ -34,4 +34,13 @@ public class PersonServiceImpl implements PersonService {
         return personRepository.findOne(id);
     }
 
+    @Override
+    public Person updatePerson(Person person) {
+        return personRepository.save(person);
+    }
+
+    @Override
+    public void removePerson(Long id) {
+        personRepository.delete(id);
+    }
 }
