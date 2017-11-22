@@ -1,8 +1,8 @@
 package edu.mum.cs544.wind.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.hibernate.annotations.Cascade;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -10,90 +10,122 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import org.hibernate.annotations.Cascade;
+import javax.persistence.ManyToMany;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Person {
-	@Id
-	@GeneratedValue
-	private long id;
-	private String firstName;
-	private String lastName;
-	private String email;
-	private String username;
-	private String password;
+    @Id
+    @GeneratedValue
+    private long id;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String username;
+    private String password;
 
-	@ElementCollection(targetClass = ROLE.class)
-	@CollectionTable
-	@Enumerated(EnumType.STRING)
-	@Cascade({org.hibernate.annotations.CascadeType.ALL})
-	private List<ROLE> roles;
+    @ElementCollection(targetClass = Role.class)
+    @CollectionTable
+    @Enumerated(EnumType.STRING)
+    @Cascade({org.hibernate.annotations.CascadeType.ALL})
+    private Set<Role> roles;
 
-	public Person() {
-		roles = new ArrayList<>();
-	}
+    @ManyToMany(mappedBy = "persons", cascade = CascadeType.ALL)
+    private List<Session> sessions;
 
-	public Person(String firstName, String lastName, String email, String username, String password) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.username = username;
-		this.password = password;
-		roles = new ArrayList<>();
-		roles.add(ROLE.CUSTOMER);
-	}
+    public Person() {
+        roles = new HashSet<>();
+        sessions = new ArrayList<>();
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public Person(long id) {
+        this.id = id;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public Person(String firstName, String lastName, String email, String username, String password, Set<Role> roles) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public List<ROLE> getRoles() {
-		return roles;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setRoles(List<ROLE> roles) {
-		this.roles = roles;
-	}
-	
-	public void addRole(ROLE role) {
-		roles.add(role);
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void addRole(Role role) {
+        roles.add(role);
+    }
+
+    public List<Session> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(List<Session> sessions) {
+        this.sessions = sessions;
+    }
+
+    public void addSession(Session session) {
+        if (!sessions.contains(session)) {
+            sessions.add(session);
+        }
+    }
 
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://www.springframework.org/schema/security"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+
+    <!-- needed for security tag lib expression support -->
+    <beans:bean id="webexpressionHandler"
+                class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
+
+    <http use-expressions="true">
+        <csrf disabled="true"/>
+        <intercept-url pattern="/**" access="isAuthenticated()"/>
+        <intercept-url pattern="/persons" access="hasRole('ROLE_CUSTOMER')" method="POST"/>
+
+        <form-login/>
+        <logout logout-success-url="/"/>
+    </http>
+
+    <authentication-manager>
+        <authentication-provider>
+            <user-service>
+                <user name="bob" password="bobiscool" authorities="ROLE_CUSTOMER"/>
+            </user-service>
+        </authentication-provider>
+        <authentication-provider>
+            <password-encoder ref="bcryptEncoder"/>
+            <jdbc-user-service data-source-ref="dataSource"
+                               users-by-username-query="SELECT username, password, 1 FROM person WHERE username=?"
+                               authorities-by-username-query="SELECT u.username, ur.roles FROM person u, person_roles ur WHERE u.id = ur.person_id AND u.username=?"/>
+        </authentication-provider>
+    </authentication-manager>
+
+    <beans:bean id="bcryptEncoder"
+                class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+    </beans:bean>
+
+</beans:beans>
