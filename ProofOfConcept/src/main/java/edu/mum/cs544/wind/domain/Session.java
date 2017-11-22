@@ -44,6 +44,7 @@ public class Session {
 
     @OneToOne
     @JoinColumn(name = "counselor_id")
+    @NotNull
     private Person counselor;
 
     @ManyToMany(cascade = CascadeType.ALL)
