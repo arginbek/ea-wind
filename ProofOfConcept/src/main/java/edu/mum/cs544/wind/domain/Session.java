@@ -10,6 +10,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class Session {
     @GeneratedValue
     private long id;
     private LocalDate date;
-    private LocalDate startTime;
+    private LocalTime startTime;
     private Duration duration;
     private int capacity;
     private String location;
@@ -38,7 +39,7 @@ public class Session {
         persons = new ArrayList<>();
     }
 
-    public Session(LocalDate date, LocalDate startTime, Duration duration, int capacity, String location, Person counselor) {
+    public Session(LocalDate date, LocalTime startTime, Duration duration, int capacity, String location, Person counselor) {
         this.date = date;
         this.startTime = startTime;
         this.duration = duration;
@@ -63,11 +64,11 @@ public class Session {
         this.date = date;
     }
 
-    public LocalDate getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDate startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 

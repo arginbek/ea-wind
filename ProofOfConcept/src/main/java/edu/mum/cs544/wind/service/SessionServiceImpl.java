@@ -29,7 +29,7 @@ public class SessionServiceImpl implements SessionService {
     @Override
     public Session updateSession(Session session) {
         /*
-    	 * Validate date.
+         * Validate date.
     	if (session.getDate() ) {}
     	*/
         return sessionRepository.save(session);
