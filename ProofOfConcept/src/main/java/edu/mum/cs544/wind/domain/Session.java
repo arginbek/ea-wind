@@ -1,5 +1,7 @@
 package edu.mum.cs544.wind.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,9 +21,16 @@ public class Session {
     @Id
     @GeneratedValue
     private long id;
+
+    @JsonFormat
     private LocalDate date;
+
+    @JsonFormat
     private LocalTime startTime;
+
+    @JsonFormat
     private Duration duration;
+
     private int capacity;
     private String location;
 

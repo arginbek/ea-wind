@@ -1,15 +1,14 @@
 package edu.mum.cs544.wind.service;
 
-import java.time.LocalDate;
-import java.util.List;
-
-import javax.transaction.Transactional;
-
+import edu.mum.cs544.wind.domain.Session;
+import edu.mum.cs544.wind.exception.UpdatePastSessionException;
+import edu.mum.cs544.wind.repository.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import edu.mum.cs544.wind.domain.Session;
-import edu.mum.cs544.wind.repository.SessionRepository;
+import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @Transactional
@@ -26,15 +25,15 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public Session updateSession(Session session) throws Exception {
-    	Session sessionUpdated = null;
-    	
-    	if (session.getDate().isBefore(LocalDate.now())) {
-    		sessionUpdated = sessionRepository.save(session);
-    	} else {
-    		throw new Exception("It is not allowed to change a session that already happened.");
-    	}
-    	
+    public Session updateSession(Session session) throws UpdatePastSessionException {
+        Session sessionUpdated = null;
+
+        if (session.getDate().isBefore(LocalDate.now())) {
+            sessionUpdated = sessionRepository.save(session);
+        } else {
+            throw new UpdatePastSessionException("It is not allowed to change a session that already happened.");
+        }
+
         return sessionUpdated;
     }
 
