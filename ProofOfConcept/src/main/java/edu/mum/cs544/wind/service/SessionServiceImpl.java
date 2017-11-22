@@ -43,17 +43,17 @@ public class SessionServiceImpl implements SessionService {
     @Override
     public Session updateSession(Long id, Session session) {
         Session sessionPersisted = sessionRepository.findOne(id);
-        
+
         if (sessionPersisted != null) {
-        	if (sessionPersisted.getDate().isEqual(LocalDate.now()) || sessionPersisted.getDate().isAfter(LocalDate.now())) {
-        		sessionPersisted = sessionRepository.save(session);
+            if (sessionPersisted.getDate().isEqual(LocalDate.now()) || sessionPersisted.getDate().isAfter(LocalDate.now())) {
+                sessionPersisted = sessionRepository.save(session);
             } else {
                 throw new SessionUpdatePastException("It is not allowed to update a past session.");
             }
         } else {
-        	throw new SessionNotFoundException("Session not found.");
+            throw new SessionNotFoundException("Session not found.");
         }
-        
+
         return sessionPersisted;
     }
 
@@ -69,16 +69,16 @@ public class SessionServiceImpl implements SessionService {
 
     @Override
     public void removeSession(Long id) {
-    	Session sessionPersisted = sessionRepository.findOne(id);
-    	
-    	if (sessionPersisted != null) {
-    		if (sessionPersisted.getDate().isEqual(LocalDate.now()) || sessionPersisted.getDate().isAfter(LocalDate.now())) {
-            	sessionRepository.delete(id);
+        Session sessionPersisted = sessionRepository.findOne(id);
+
+        if (sessionPersisted != null) {
+            if (sessionPersisted.getDate().isEqual(LocalDate.now()) || sessionPersisted.getDate().isAfter(LocalDate.now())) {
+                sessionRepository.delete(id);
             } else {
                 throw new SessionDeletePastException("It is not allowed to create a past session.");
             }
-    	} else {
-        	throw new SessionNotFoundException("Session not found.");
+        } else {
+            throw new SessionNotFoundException("Session not found.");
         }
     }
 }

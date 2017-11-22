@@ -13,10 +13,10 @@ import java.util.List;
 @Transactional
 public class PersonServiceImpl implements PersonService {
 
-	@Autowired
-	PersonRepository personRepository;
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+    @Autowired
+    PersonRepository personRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public Person addPerson(Person person) {
@@ -32,6 +32,11 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person getPerson(long id) {
         return personRepository.findOne(id);
+    }
+
+    @Override
+    public Person getPersonByUsername(String username) {
+        return personRepository.getPersonByUsername(username);
     }
 
     @Override
