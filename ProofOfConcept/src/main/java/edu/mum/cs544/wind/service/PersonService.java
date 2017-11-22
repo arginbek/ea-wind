@@ -7,9 +7,11 @@ import java.util.List;
 public interface PersonService {
     Person addPerson(Person person);
 
-    List<Person> getPersons();
+    List<Person> getAllPersons();
 
     Person getPerson(long id);
 
-//    Session addSession(Session session);
+    Person updatePerson(Person person);
+
+    void removePerson(Long id);
 }
