@@ -1,13 +1,14 @@
 package edu.mum.cs544.wind.service;
 
-import edu.mum.cs544.wind.domain.Person;
-import edu.mum.cs544.wind.domain.Session;
-import edu.mum.cs544.wind.repository.SessionRepository;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.List;
+import edu.mum.cs544.wind.domain.Session;
+import edu.mum.cs544.wind.repository.SessionRepository;
 
 @Service
 @Transactional
@@ -20,9 +21,6 @@ public class SessionServiceImpl implements SessionService {
 
     @Override
     public Session addSession(Session session) {
-        long id = session.getCounselor().getId();
-        Person person = personService.getPerson(id);
-        session.setCounselor(person);
         return sessionRepository.save(session);
     }
 
