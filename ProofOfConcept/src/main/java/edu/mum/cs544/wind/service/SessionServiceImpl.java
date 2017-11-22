@@ -1,5 +1,6 @@
 package edu.mum.cs544.wind.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -25,12 +26,16 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public Session updateSession(Session session) {
-        /*
-    	 * Validate date.
-    	if (session.getDate() ) {}
-    	*/
-        return sessionRepository.save(session);
+    public Session updateSession(Session session) throws Exception {
+    	Session sessionUpdated = null;
+    	
+    	if (session.getDate().isBefore(LocalDate.now())) {
+    		sessionUpdated = sessionRepository.save(session);
+    	} else {
+    		throw new Exception("It is not allowed to change a session that already happened.");
+    	}
+    	
+        return sessionUpdated;
     }
 
     @Override

@@ -7,7 +7,7 @@ import java.util.List;
 public interface SessionService {
     Session addSession(Session session);
 
-    Session updateSession(Session session);
+    Session updateSession(Session session) throws Exception;
 
     List<Session> getAllSession();
 
