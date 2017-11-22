@@ -1,6 +1,7 @@
 package edu.mum.cs544.wind.service;
 
 import edu.mum.cs544.wind.domain.Person;
+import edu.mum.cs544.wind.domain.Role;
 import edu.mum.cs544.wind.domain.Session;
 import edu.mum.cs544.wind.repository.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,11 @@ public class SessionServiceImpl implements SessionService {
     public Session addSession(Session session) {
         long id = session.getCounselor().getId();
         Person person = personService.getPerson(id);
-        session.setCounselor(person);
+        if (person.getRoles().contains(Role.ROLE_COUNSELOR)) {
+            session.setCounselor(person);
+        } else {
+            System.out.println("NOT a COUNSELOR");
+        }
         return sessionRepository.save(session);
     }
 
