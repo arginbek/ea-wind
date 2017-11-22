@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 @Transactional
 public class SessionServiceImpl implements SessionService {
-	  // Test
+
     @Autowired
     SessionRepository sessionRepository;
     @Autowired
