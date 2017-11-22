@@ -1,6 +1,10 @@
 package edu.mum.cs544.wind.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,11 +14,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class Session {
@@ -23,15 +27,19 @@ public class Session {
     private long id;
 
     @JsonFormat
+    @NotNull
     private LocalDate date;
 
     @JsonFormat
+    @NotNull
     private LocalTime startTime;
 
     @JsonFormat
     private Duration duration;
 
     private int capacity;
+    
+    @NotEmpty
     private String location;
 
     @OneToOne

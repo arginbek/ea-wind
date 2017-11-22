@@ -1,18 +1,17 @@
 package edu.mum.cs544.wind.service;
 
-import edu.mum.cs544.wind.domain.Session;
-import edu.mum.cs544.wind.exception.UpdatePastSessionException;
-
 import java.util.List;
+
+import edu.mum.cs544.wind.domain.Session;
 
 public interface SessionService {
     Session addSession(Session session);
 
-    Session updateSession(Session session) throws UpdatePastSessionException;
+    Session updateSession(Long id, Session session);
 
     List<Session> getAllSession();
 
-    Session getSession(Long sessionId);
+    Session getSession(Long id);
 
-    void removeSession(Long sessionId);
+    void removeSession(Long id);
 }
