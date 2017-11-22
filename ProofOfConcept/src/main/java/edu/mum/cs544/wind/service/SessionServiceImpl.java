@@ -13,7 +13,7 @@ import edu.mum.cs544.wind.repository.SessionRepository;
 @Service
 @Transactional
 public class SessionServiceImpl implements SessionService {
-	
+	// Test
     @Autowired
     SessionRepository sessionRepository;
 
