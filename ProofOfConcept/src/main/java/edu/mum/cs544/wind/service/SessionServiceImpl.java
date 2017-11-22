@@ -3,11 +3,13 @@ package edu.mum.cs544.wind.service;
 import edu.mum.cs544.wind.domain.Person;
 import edu.mum.cs544.wind.domain.Role;
 import edu.mum.cs544.wind.domain.Session;
+import edu.mum.cs544.wind.exception.NotACounselorException;
 import edu.mum.cs544.wind.repository.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -25,19 +27,23 @@ public class SessionServiceImpl implements SessionService {
         Person person = personService.getPerson(id);
         if (person.getRoles().contains(Role.ROLE_COUNSELOR)) {
             session.setCounselor(person);
+            return session;
         } else {
-            System.out.println("NOT a COUNSELOR");
+            throw new NotACounselorException();
         }
-        return sessionRepository.save(session);
     }
 
     @Override
-    public Session updateSession(Session session) {
-        /*
-         * Validate date.
-    	if (session.getDate() ) {}
-    	*/
-        return sessionRepository.save(session);
+    public Session updateSession(Session session) throws Exception {
+        Session sessionUpdated = null;
+
+        if (session.getDate().isBefore(LocalDate.now())) {
+            sessionUpdated = sessionRepository.save(session);
+        } else {
+            throw new Exception("It is not allowed to change a session that already happened.");
+        }
+
+        return sessionUpdated;
     }
 
     @Override
