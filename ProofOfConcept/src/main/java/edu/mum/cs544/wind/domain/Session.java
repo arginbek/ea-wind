@@ -25,7 +25,7 @@ public class Session {
     private int capacity;
     private String location;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "counselor_id")
     private Person counselor;
 
