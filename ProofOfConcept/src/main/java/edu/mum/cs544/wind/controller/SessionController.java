@@ -27,8 +27,8 @@ public class SessionController {
         return sessionService.addSession(session);
     }
 
-    @PutMapping("/sessions")
-    public Session updateSession(@RequestBody Session session) {
+    @PutMapping("/sessions/{id}")
+    public Session updateSession(@PathVariable Long id, @RequestBody Session session) throws Exception {
         return sessionService.updateSession(session);
     }
 
