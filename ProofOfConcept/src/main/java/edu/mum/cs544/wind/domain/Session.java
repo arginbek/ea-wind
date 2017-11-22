@@ -1,5 +1,7 @@
 package edu.mum.cs544.wind.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +21,20 @@ public class Session {
     @Id
     @GeneratedValue
     private long id;
+
+    @JsonFormat
     private LocalDate date;
-    private LocalDate startTime;
+
+    @JsonFormat
+    private LocalTime startTime;
+
+    @JsonFormat
     private Duration duration;
+
     private int capacity;
     private String location;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "counselor_id")
     private Person counselor;
 
@@ -38,7 +48,7 @@ public class Session {
         persons = new ArrayList<>();
     }
 
-    public Session(LocalDate date, LocalDate startTime, Duration duration, int capacity, String location, Person counselor) {
+    public Session(LocalDate date, LocalTime startTime, Duration duration, int capacity, String location, Person counselor) {
         this.date = date;
         this.startTime = startTime;
         this.duration = duration;
@@ -63,11 +73,11 @@ public class Session {
         this.date = date;
     }
 
-    public LocalDate getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDate startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 

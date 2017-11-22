@@ -6,5 +6,12 @@ import java.util.List;
 
 public interface PersonService {
     Person addPerson(Person person);
-    List<Person> getPersons();
+
+    List<Person> getAllPersons();
+
+    Person getPerson(long id);
+
+    Person updatePerson(Person person);
+
+    void removePerson(Long id);
 }

@@ -41,19 +41,24 @@ public class Person {
         sessions = new ArrayList<>();
     }
 
-    public Person(String firstName, String lastName, String email, String username, String password) {
+    public Person(long id) {
+        this.id = id;
+    }
+
+    public Person(String firstName, String lastName, String email, String username, String password, Set<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
         this.password = password;
+        this.roles = roles;
     }
 
     public long getId() {
         return id;
     }
 
-    private void setId(long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
