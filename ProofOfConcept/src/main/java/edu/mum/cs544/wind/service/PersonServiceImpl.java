@@ -34,4 +34,10 @@ public class PersonServiceImpl implements PersonService {
         return personRepository.findOne(id);
     }
 
+	@Override
+	public Person findPerson(long id) {
+		
+		return personRepository.findOne(id);
+	}
+
 }
