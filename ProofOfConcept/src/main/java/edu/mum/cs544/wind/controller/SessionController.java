@@ -1,7 +1,7 @@
 package edu.mum.cs544.wind.controller;
 
-import java.util.List;
-
+import edu.mum.cs544.wind.domain.Session;
+import edu.mum.cs544.wind.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,11 +12,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.mum.cs544.wind.domain.Session;
-import edu.mum.cs544.wind.service.SessionService;
+import java.util.List;
 
 @RestController
-@PreAuthorize("hasRole(Role.ADMIN)")
+@PreAuthorize("hasRole(Role.ROLE_ADMIN)")
 public class SessionController {
 
     @Autowired
@@ -34,7 +33,7 @@ public class SessionController {
 
     @GetMapping("/sessions")
     public List<Session> getAllSession() {
-        return (List<Session>) sessionService.getAllSession();
+        return sessionService.getAllSession();
     }
 
     @GetMapping("/sessions/{id}")

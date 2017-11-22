@@ -4,6 +4,7 @@ import edu.mum.cs544.wind.domain.Person;
 import edu.mum.cs544.wind.domain.Role;
 import edu.mum.cs544.wind.domain.Session;
 import edu.mum.cs544.wind.exception.NotACounselorException;
+import edu.mum.cs544.wind.exception.UpdatePastSessionException;
 import edu.mum.cs544.wind.repository.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,13 +35,13 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public Session updateSession(Session session) throws Exception {
+    public Session updateSession(Session session) throws UpdatePastSessionException {
         Session sessionUpdated = null;
 
         if (session.getDate().isBefore(LocalDate.now())) {
             sessionUpdated = sessionRepository.save(session);
         } else {
-            throw new Exception("It is not allowed to change a session that already happened.");
+            throw new UpdatePastSessionException("It is not allowed to change a session that already happened.");
         }
 
         return sessionUpdated;

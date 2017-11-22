@@ -40,9 +40,9 @@ public class Person {
         roles = new HashSet<>();
         sessions = new ArrayList<>();
     }
-    
+
     public Person(long id) {
-    	this.id = id;
+        this.id = id;
     }
 
     public Person(String firstName, String lastName, String email, String username, String password, Set<Role> roles) {
