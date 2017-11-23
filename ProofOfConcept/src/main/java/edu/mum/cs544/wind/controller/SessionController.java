@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -22,13 +23,13 @@ public class SessionController {
     private SessionService sessionService;
 
     @PostMapping("/sessions")
-    public Session addSession(@RequestBody Session session) {
+    public Session addSession(@Valid @RequestBody Session session) {
         return sessionService.addSession(session);
     }
 
     @PutMapping("/sessions/{id}")
-    public Session updateSession(@PathVariable Long id, @RequestBody Session session) throws Exception {
-        return sessionService.updateSession(session);
+    public Session updateSession(@PathVariable Long id, @Valid @RequestBody Session session) {
+        return sessionService.updateSession(id, session);
     }
 
     @GetMapping("/sessions")
@@ -42,7 +43,8 @@ public class SessionController {
     }
 
     @DeleteMapping("/sessions/{id}")
-    public void removeSession(@PathVariable Long id) {
+    public String removeSession(@PathVariable Long id) {
         sessionService.removeSession(id);
+        return "OK";
     }
 }
