@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Service
 @Transactional
@@ -35,7 +33,8 @@ public class AppointmentServiceImpl implements AppointmentService {
         if (person == null || session == null) {
             response.append("Failed: Invalid person and/or session, please choose another person/session.");
         } else {
-            if (session.getDate().isBefore(LocalDate.now()) || session.getStartTime().isBefore(LocalTime.now())) {
+            LocalDateTime sessionTime = LocalDateTime.of(session.getDate(), session.getStartTime());
+            if (sessionTime.isBefore(LocalDateTime.now())) {
                 response.append("Failed: Session is already finished, please choose another session.");
             } else if (session.isFull()) {
                 response.append("Failed: Session is full, please choose another session.");

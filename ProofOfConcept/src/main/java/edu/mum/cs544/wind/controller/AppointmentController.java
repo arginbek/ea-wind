@@ -6,8 +6,8 @@ import edu.mum.cs544.wind.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
@@ -20,13 +20,13 @@ public class AppointmentController {
     @Autowired
     private PersonService personService;
 
-    @GetMapping("/persons/{personId}/sessions/{sessionId}/appointments")
+    @PostMapping("/appointments/persons/{personId}/sessions/{sessionId}")
     @PreAuthorize(value = "hasAnyRole('ROLE_ADMIN')")
     public String addAppointment(@PathVariable Long personId, @PathVariable Long sessionId) {
         return appointmentService.addAppointment(personId, sessionId);
     }
 
-    @GetMapping("/sessions/{sessionId}/appointments")
+    @PostMapping("/appointments/sessions/{sessionId}")
     @PreAuthorize(value = "hasAnyRole('ROLE_CUSTOMER')")
     public String addAppointment(@PathVariable Long sessionId, Principal principal) {
         String username = principal.getName();
@@ -34,13 +34,13 @@ public class AppointmentController {
         return appointmentService.addAppointment(personId, sessionId);
     }
 
-    @DeleteMapping("/persons/{personId}/sessions/{sessionId}/appointments")
+    @DeleteMapping("/appointments/persons/{personId}/sessions/{sessionId}")
     @PreAuthorize(value = "hasAnyRole('ROLE_ADMIN')")
     public String removeAppointment(@PathVariable Long personId, @PathVariable Long sessionId) {
         return appointmentService.removeAppointment(personId, sessionId, true);
     }
 
-    @DeleteMapping("/sessions/{sessionId}/appointments")
+    @DeleteMapping("/appointments/sessions/{sessionId}")
     @PreAuthorize(value = "hasAnyRole('ROLE_CUSTOMER')")
     public String removeAppointment(@PathVariable Long sessionId, Principal principal) {
         String username = principal.getName();
