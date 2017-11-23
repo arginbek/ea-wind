@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cascade;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -24,6 +25,7 @@ public class Person {
     private String firstName;
     private String lastName;
     private String email;
+    @Column(unique = true)
     private String username;
     private String password;
 
@@ -128,4 +130,7 @@ public class Person {
         }
     }
 
+    public void removeSession(Session session) {
+        sessions.remove(session);
+    }
 }
