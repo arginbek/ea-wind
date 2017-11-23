@@ -43,14 +43,14 @@ public class SessionServiceImpl implements SessionService {
         	
         	if (person.getRoles().contains(Role.ROLE_COUNSELOR)) {
         		sessionRepository.save(session);
+        		
+        		entityManager.refresh(session);
         	} else {
         		throw new SessionCreateNotCounselorException("The session user must be a Counselor.");
         	}
         } else {
             throw new SessionCreatePastException("It is not allowed to create a past session.");
         }
-        
-        entityManager.refresh(session);
         
         return session;
     }
