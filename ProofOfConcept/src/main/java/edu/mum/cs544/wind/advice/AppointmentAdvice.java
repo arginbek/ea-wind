@@ -51,9 +51,14 @@ public class AppointmentAdvice {
 					+ ". The current capacity of this session is : " + session.getCapacity() + ",\r\n\r\n"
 					+ "Wind Team";
 
+<<<<<<< HEAD
 			emailService.notifyByEmail(counselorEmail, message, customerSuccessMessage);
 			emailService.notifyByEmail(customerEmail, "New registration notification", counselorMessage);
 
+=======
+			emailService.notifyByEmail(customerEmail, message, customerSuccessMessage);
+			emailService.notifyByEmail(counselorEmail, "New registration notification", counselorMessage);
+>>>>>>> ca26399... Update email notification
 		} else if (message.equals("Booking Failed: Session is full, please choose another session.")) {
 			String customerFailureMessage = "Hi " + person.getLastName() + ",\r\n"
 					+ "Our team thanks you for trying to register to our retreat session."
@@ -74,7 +79,7 @@ public class AppointmentAdvice {
 		if (message.equals("Cancel Booking Success: You have successfully cancel an appointment.")) {
 			String counselorEmail = session.getCounselor().getEmail();
 			String customerEmail = person.getEmail();
-			String customerSuccessMessage = "Dear " + person.getFirstName() + ",\r\n\r\n"
+			String customerCancelMessage = "Dear " + person.getFirstName() + ",\r\n\r\n"
 					+ "Your booking of the session held by the counslor " + session.getCounselor().getFirstName() + " "
 					+ session.getCounselor().getLastName() + " on " + session.getDate() + "." + "\r\n" + "\r\n"
 					+ "Best wishes,\r\n\r\n" + "" + "Wind Team";
@@ -83,8 +88,8 @@ public class AppointmentAdvice {
 					+ ". The current capacity of this session is : " + session.getCapacity() + ",\r\n\r\n"
 					+ "Wind Team";
 
-			emailService.notifyByEmail(counselorEmail, message, customerSuccessMessage);
-			emailService.notifyByEmail(customerEmail, "New registration notification", counselorMessage);
+			emailService.notifyByEmail(counselorEmail, message, counselorMessage);
+			emailService.notifyByEmail(customerEmail, "Cancel Booking notification", customerCancelMessage);
 		}
 	}
 
