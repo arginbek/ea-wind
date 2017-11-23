@@ -1,17 +1,21 @@
 package edu.mum.cs544.wind.service;
 
+import java.time.LocalDate;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import edu.mum.cs544.wind.domain.Session;
 import edu.mum.cs544.wind.exception.SessionCreatePastException;
 import edu.mum.cs544.wind.exception.SessionDeletePastException;
 import edu.mum.cs544.wind.exception.SessionNotFoundException;
 import edu.mum.cs544.wind.exception.SessionUpdatePastException;
 import edu.mum.cs544.wind.repository.SessionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
-import java.time.LocalDate;
-import java.util.List;
 
 @Service
 @Transactional
@@ -19,15 +23,20 @@ public class SessionServiceImpl implements SessionService {
 
     @Autowired
     SessionRepository sessionRepository;
+    
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public Session addSession(Session session) {
         if (session.getDate().isEqual(LocalDate.now()) || session.getDate().isAfter(LocalDate.now())) {
-            session = sessionRepository.save(session);
+        	sessionRepository.save(session);
         } else {
             throw new SessionCreatePastException("It is not allowed to create a past session.");
         }
-
+        
+        entityManager.refresh(session);
+        
         return session;
     }
 

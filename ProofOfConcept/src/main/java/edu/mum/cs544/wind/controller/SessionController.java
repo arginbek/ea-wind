@@ -45,6 +45,7 @@ public class SessionController {
     @DeleteMapping("/sessions/{id}")
     public String removeSession(@PathVariable Long id) {
         sessionService.removeSession(id);
+        
         return "OK";
     }
 }
