@@ -22,13 +22,13 @@ public class SessionController {
     private SessionService sessionService;
 
     @PostMapping("/sessions")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize(value = "hasAnyRole('ROLE_ADMIN')")
     public Session addSession(@Valid @RequestBody Session session) {
         return sessionService.addSession(session);
     }
 
     @PutMapping("/sessions/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize(value = "hasAnyRole('ROLE_ADMIN')")
     public Session updateSession(@PathVariable Long id, @Valid @RequestBody Session session) {
         return sessionService.updateSession(id, session);
     }
@@ -44,7 +44,7 @@ public class SessionController {
     }
 
     @DeleteMapping("/sessions/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize(value = "hasAnyRole('ROLE_ADMIN')")
     public String removeSession(@PathVariable Long id) {
         sessionService.removeSession(id);
         

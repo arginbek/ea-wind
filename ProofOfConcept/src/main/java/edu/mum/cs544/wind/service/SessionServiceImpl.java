@@ -18,6 +18,7 @@ import edu.mum.cs544.wind.exception.SessionCreatePastException;
 import edu.mum.cs544.wind.exception.SessionDeletePastException;
 import edu.mum.cs544.wind.exception.SessionNotFoundException;
 import edu.mum.cs544.wind.exception.SessionUpdatePastException;
+import edu.mum.cs544.wind.exception.UserNotFoundException;
 import edu.mum.cs544.wind.repository.PersonRepository;
 import edu.mum.cs544.wind.repository.SessionRepository;
 
@@ -41,12 +42,16 @@ public class SessionServiceImpl implements SessionService {
         if (session.getDate().isEqual(LocalDate.now()) || session.getDate().isAfter(LocalDate.now())) {
         	person = personRepository.findOne(session.getCounselor().getId());
         	
-        	if (person.getRoles().contains(Role.ROLE_COUNSELOR)) {
-        		sessionRepository.save(session);
-        		
-        		entityManager.refresh(session);
+        	if (person != null) {
+        		if (person.getRoles().contains(Role.ROLE_COUNSELOR)) {
+            		sessionRepository.save(session);
+            		
+            		entityManager.refresh(session);
+            	} else {
+            		throw new SessionCreateNotCounselorException("The session user must be a Counselor.");
+            	}
         	} else {
-        		throw new SessionCreateNotCounselorException("The session user must be a Counselor.");
+        		throw new UserNotFoundException("The session user was not found.");
         	}
         } else {
             throw new SessionCreatePastException("It is not allowed to create a past session.");
@@ -90,7 +95,7 @@ public class SessionServiceImpl implements SessionService {
             if (sessionPersisted.getDate().isEqual(LocalDate.now()) || sessionPersisted.getDate().isAfter(LocalDate.now())) {
                 sessionRepository.delete(id);
             } else {
-                throw new SessionDeletePastException("It is not allowed to create a past session.");
+                throw new SessionDeletePastException("It is not allowed to delete a past session.");
             }
         } else {
             throw new SessionNotFoundException("Session not found.");

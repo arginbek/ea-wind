@@ -41,7 +41,7 @@ public class PersonController {
     }
 
     @GetMapping("/persons")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize(value = "hasAnyRole('ROLE_ADMIN')")
     public List<Person> getAllPersons() {
         return personService.getAllPersons();
     }
@@ -63,7 +63,7 @@ public class PersonController {
     }
 
     @DeleteMapping("/persons/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize(value = "hasAnyRole('ROLE_ADMIN')")
     public void removePerson(@PathVariable Long id) {
         personService.removePerson(id);
     }
