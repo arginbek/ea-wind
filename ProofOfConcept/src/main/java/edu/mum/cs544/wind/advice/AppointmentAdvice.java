@@ -51,14 +51,8 @@ public class AppointmentAdvice {
 					+ ". The current capacity of this session is : " + session.getCapacity() + ",\r\n\r\n"
 					+ "Wind Team";
 
-<<<<<<< HEAD
-			emailService.notifyByEmail(counselorEmail, message, customerSuccessMessage);
-			emailService.notifyByEmail(customerEmail, "New registration notification", counselorMessage);
-
-=======
 			emailService.notifyByEmail(customerEmail, message, customerSuccessMessage);
 			emailService.notifyByEmail(counselorEmail, "New registration notification", counselorMessage);
->>>>>>> ca26399... Update email notification
 		} else if (message.equals("Booking Failed: Session is full, please choose another session.")) {
 			String customerFailureMessage = "Hi " + person.getLastName() + ",\r\n"
 					+ "Our team thanks you for trying to register to our retreat session."
@@ -88,8 +82,10 @@ public class AppointmentAdvice {
 					+ ". The current capacity of this session is : " + session.getCapacity() + ",\r\n\r\n"
 					+ "Wind Team";
 
+
 			emailService.notifyByEmail(counselorEmail, message, counselorMessage);
 			emailService.notifyByEmail(customerEmail, "Cancel Booking notification", customerCancelMessage);
+
 		}
 	}
 
