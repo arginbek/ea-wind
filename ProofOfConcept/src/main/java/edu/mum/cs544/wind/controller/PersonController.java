@@ -23,7 +23,7 @@ public class PersonController {
     private PersonService personService;
 
     @PostMapping("/persons")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize(value = "hasAnyRole('ROLE_ADMIN')")
     public Person addPerson(@RequestBody Person person) {
         return personService.addPerson(person);
     }
