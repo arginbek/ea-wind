@@ -27,16 +27,16 @@ public class PersonController {
     public Person addPerson(@RequestBody Person person) {
         return personService.addPerson(person);
     }
-    
+
     @GetMapping("/persons/{id}")
     public Person getPerson(@PathVariable Long id, Principal principal) {
-    	String username = principal.getName();
+        String username = principal.getName();
         Person person = personService.getPersonByUsername(username);
-        
+
         if (!person.getRoles().contains(Role.ROLE_ADMIN) && person.getId() != id) {
-        	throw new UnauthorizedPersonException("UNAUTHORIZED.");
+            throw new UnauthorizedPersonException("UNAUTHORIZED.");
         }
-        
+
         return personService.getPerson(id);
     }
 
@@ -48,17 +48,17 @@ public class PersonController {
 
     @PutMapping("/persons/{id}")
     public Person updatePerson(@PathVariable Long id, @RequestBody Person person, Principal principal) {
-    	String username = principal.getName();
+        String username = principal.getName();
         Person personPersisted = personService.getPersonByUsername(username);
-        
+
         if (!personPersisted.getRoles().contains(Role.ROLE_ADMIN)) {
-        	if (personPersisted.getId() != id) {
-        		throw new UnauthorizedPersonException("UNAUTHORIZED.");
-        	}
-        	
-        	person.setRoles(personPersisted.getRoles());
+            if (personPersisted.getId() != id) {
+                throw new UnauthorizedPersonException("UNAUTHORIZED.");
+            }
+
+            person.setRoles(personPersisted.getRoles());
         }
-        
+
         return personService.updatePerson(person);
     }
 
