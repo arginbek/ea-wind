@@ -8,6 +8,6 @@ public class Test {
 
     @RequestMapping("/")
     public String getMyName() {
-        return "MyName";
+        return "LOGIN SUCCESSFULL";
     }
 }
