@@ -9,20 +9,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmailServiceImpl implements EmailService {
 
-	@Autowired
-	private JavaMailSender emailSender;
-	@Autowired
-	private SimpleMailMessage mailMessage;
+    @Autowired
+    private JavaMailSender emailSender;
+    @Autowired
+    private SimpleMailMessage mailMessage;
 
-	@Async
-	@Override
-	public void notifyByEmail(String destinationEmail, String subject, String text) {
+    @Async
+    @Override
+    public void notifyByEmail(String destinationEmail, String subject, String text) {
 
-		mailMessage.setTo(destinationEmail);
-		mailMessage.setSubject(subject);
-		mailMessage.setText(text);
+        mailMessage.setTo(destinationEmail);
+        mailMessage.setSubject(subject);
+        mailMessage.setText(text);
 
-		emailSender.send(mailMessage);
-	}
+        emailSender.send(mailMessage);
+    }
 
 }

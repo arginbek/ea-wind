@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
-@ImportResource({"classpath:springsecurity.xml","classpath:springemailconfig.xml"})
+@ImportResource({"classpath:springsecurity.xml", "classpath:springemailconfig.xml"})
 @EnableAsync
 public class ProofOfConceptApplication {
 

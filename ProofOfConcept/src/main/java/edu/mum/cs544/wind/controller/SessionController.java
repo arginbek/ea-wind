@@ -47,7 +47,6 @@ public class SessionController {
     @PreAuthorize(value = "hasAnyRole('ROLE_ADMIN')")
     public String removeSession(@PathVariable Long id) {
         sessionService.removeSession(id);
-        
-        return "OK";
+        return "Session Removed.";
     }
 }

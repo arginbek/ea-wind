@@ -25,37 +25,35 @@ import java.util.List;
 @Transactional
 public class SessionServiceImpl implements SessionService {
 
-	@PersistenceContext
-    private EntityManager entityManager;
-	
     @Autowired
     SessionRepository sessionRepository;
-    
     @Autowired
     PersonRepository personRepository;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public Session addSession(Session session) {
-    	Person person = null;
+        Person person = null;
         LocalDateTime sessionTime = LocalDateTime.of(session.getDate(), session.getStartTime());
         if (sessionTime.isAfter(LocalDateTime.now())) {
-        	person = personRepository.findOne(session.getCounselor().getId());
-        	
-        	if (person != null) {
-        		if (person.getRoles().contains(Role.ROLE_COUNSELOR)) {
-            		sessionRepository.save(session);
-            		
-            		entityManager.refresh(session);
-            	} else {
-            		throw new SessionCreateNotCounselorException("The session user must be a Counselor.");
-            	}
-        	} else {
-        		throw new UserNotFoundException("The session user was not found.");
-        	}
+            person = personRepository.findOne(session.getCounselor().getId());
+
+            if (person != null) {
+                if (person.getRoles().contains(Role.ROLE_COUNSELOR)) {
+                    sessionRepository.save(session);
+
+                    entityManager.refresh(session);
+                } else {
+                    throw new SessionCreateNotCounselorException("The session user must be a Counselor.");
+                }
+            } else {
+                throw new UserNotFoundException("The session user was not found.");
+            }
         } else {
             throw new SessionCreatePastException("It is not allowed to create a past session.");
         }
-        
+
         return session;
     }
 
