@@ -10,27 +10,42 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import edu.mum.cs544.wind.domain.Person;
+import edu.mum.cs544.wind.domain.Role;
 import edu.mum.cs544.wind.domain.Session;
+import edu.mum.cs544.wind.exception.SessionCreateNotCounselorException;
 import edu.mum.cs544.wind.exception.SessionCreatePastException;
 import edu.mum.cs544.wind.exception.SessionDeletePastException;
 import edu.mum.cs544.wind.exception.SessionNotFoundException;
 import edu.mum.cs544.wind.exception.SessionUpdatePastException;
+import edu.mum.cs544.wind.repository.PersonRepository;
 import edu.mum.cs544.wind.repository.SessionRepository;
 
 @Service
 @Transactional
 public class SessionServiceImpl implements SessionService {
 
+	@PersistenceContext
+    private EntityManager entityManager;
+	
     @Autowired
     SessionRepository sessionRepository;
     
-    @PersistenceContext
-    private EntityManager entityManager;
+    @Autowired
+    PersonRepository personRepository;
 
     @Override
     public Session addSession(Session session) {
+    	Person person = null;
+    	
         if (session.getDate().isEqual(LocalDate.now()) || session.getDate().isAfter(LocalDate.now())) {
-        	sessionRepository.save(session);
+        	person = personRepository.findOne(session.getCounselor().getId());
+        	
+        	if (person.getRoles().contains(Role.ROLE_COUNSELOR)) {
+        		sessionRepository.save(session);
+        	} else {
+        		throw new SessionCreateNotCounselorException("The session user must be a Counselor.");
+        	}
         } else {
             throw new SessionCreatePastException("It is not allowed to create a past session.");
         }
