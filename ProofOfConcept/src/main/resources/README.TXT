@@ -18,11 +18,11 @@ System Use using Postman
 		- Authorization: No Auth
 		- Body 1 (raw - JSON):
 {
-    "firstName": "Payman",
-    "lastName": "Salek",
-    "email": "psalek@mum.edu",
-    "username": "salek",
-    "password": "salek",
+    "firstName": "Dave",
+    "lastName": "Cross",
+    "email": "dcross@mum.edu",
+    "username": "cross",
+    "password": "cross",
     "roles": ["ROLE_ADMIN"]
 }
 
